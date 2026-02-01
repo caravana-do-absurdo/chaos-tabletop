@@ -72,7 +72,6 @@ const createDice = (facets: DiceNumbers) => {
 .buttons-wrapper {
     display: inline-block;
     width: 100%;
-    height: 32px;
 }
 
 button {
@@ -96,8 +95,6 @@ button {
     font-weight: bold;
 }
 
-
-
 .dice-grid {
     margin: 10px 0px;
     position: relative;
@@ -106,5 +103,25 @@ button {
     align-items: flex-start;
     justify-content: flex-start;
     gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .dice-area {
+        width: calc(100% - 48px);
+        height: calc(100% - 100px - 32px);
+        bottom: 100px;
+        right: 24px;
+    }
+
+    button {
+        width: calc(50% - 4px);
+        padding: 12px 0px;
+        margin: 2px;
+    }
+
+    .roll-button,
+    .reset-button {
+        width: 100%;
+    }
 }
 </style>

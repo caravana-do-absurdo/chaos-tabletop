@@ -45,4 +45,10 @@ const logStore = useLogStore()
     margin-bottom: 4px;
     word-wrap: break-word;
 }
+
+@media (max-width: 768px) {
+    .log-container {
+        display: none;
+    }
+}
 </style>
