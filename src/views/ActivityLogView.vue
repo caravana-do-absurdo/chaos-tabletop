@@ -17,9 +17,9 @@ const logStore = useLogStore()
 <style scoped>
 .log-container {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 350px;
+    top: 20px;
+    right: 20px;
+    width: 200px;
     height: 200px;
     background-color: rgb(0, 0, 0);
     border: 1px solid #444444;

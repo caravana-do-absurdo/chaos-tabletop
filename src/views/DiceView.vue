@@ -52,8 +52,8 @@ const createDice = (facets: DiceNumbers) => {
     position: fixed;
     width: 30%;
     height: 50vh;
-    bottom: 100px;
-    right: 24px;
+    bottom: 85px;
+    right: 20px;
     background-color: black;
     border: 1px solid #444444;
     border-radius: 8px;

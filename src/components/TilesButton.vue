@@ -1,32 +1,32 @@
 <template>
     <button
         class="fab-button"
-        :class="{ 'fab-button-active': showDiceView }"
-        @click="toggleDiceView"
+        :class="{ 'fab-button-active': showTilesView }"
+        @click="toggleTilesView"
         aria-label="Toggle dice roller"
     >
-        <span class="dice-icon">{{ showDiceView ? '⬇️' : '🎲' }}</span>
+        <span class="icon">{{ showTilesView ? '❌' : '🖼️' }}</span>
     </button>
 
-    <DiceView v-if="showDiceView" />
+    <TilesView v-if="showTilesView" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import DiceView from '../views/DiceView.vue';
+import TilesView from '../views/TilesView.vue';
 
-const showDiceView = ref(false);
+const showTilesView = ref(false);
 
-const toggleDiceView = () => {
-    showDiceView.value = !showDiceView.value;
+const toggleTilesView = () => {
+    showTilesView.value = !showTilesView.value;
 };
 </script>
 
 <style scoped>
 .fab-button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 20px;
+    left: 20px;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -54,7 +54,7 @@ const toggleDiceView = () => {
     background-color: #a9a9a9;
 }
 
-.dice-icon {
+.icon {
     font-size: 28px;
 }
 </style>
