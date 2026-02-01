@@ -20,30 +20,42 @@
 import { ref } from 'vue';
 import BaseDice from '@/components/BaseDice.vue'
 import { DiceNumbers } from '@/types';
+import { useLogStore } from '@/stores/log';
 
+const { addLogMsg } = useLogStore()
 const diceTypes = ref<Array<DiceNumbers>>([20, 12, 10, 8, 6, 4]);
 const dicesToRoll = ref<Array<DiceNumbers>>([]);
 const rollAllDice = ref(false)
 
-const createDice = (facets: DiceNumbers) => {
-    dicesToRoll.value.push(facets)
-};
+const logReset = () => {
+    addLogMsg(`---- DICE RESET ----`)
+}
+
 
 const reset = () => {
+    logReset();
     dicesToRoll.value = [];
     rollAllDice.value = false;
 }
+
+const createDice = (facets: DiceNumbers) => {
+    if(rollAllDice.value) {
+        reset();
+    }
+    dicesToRoll.value.push(facets)
+};
 
 </script>
 
 <style scoped>
 .dice-area {
     position: fixed;
-    width: 50%;
+    width: 30%;
     height: 50vh;
     bottom: 100px;
     right: 24px;
-    background-color: white;
+    background-color: black;
+    border: 1px solid #444444;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -65,16 +77,16 @@ const reset = () => {
 
 button {
     padding: 8px 16px;
-    border: 0px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
-    color: white;
+    background-color: transparent;
     margin: 0px 2px 0px 0px;
 }
 
 .roll-button {
     float: inline-end;
     font-weight: bold;
+    color: white;
     background-color: #5c17c8;
 }
 

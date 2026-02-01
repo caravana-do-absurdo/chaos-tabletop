@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { useLogStore } from '@/stores/log';
 import { DiceNumbers } from '@/types';
 import { ref, watch } from 'vue'
 
@@ -26,6 +27,11 @@ const props = defineProps<Props>()
 
 const currentFace = ref(1)
 const finishedRolling = ref(false)
+const { addLogMsg } = useLogStore()
+
+const logResult = () => {
+    addLogMsg(`Rolled d${props.facets} --> ${currentFace.value}`)
+}
 
 const roll = async () => {
     currentFace.value = 1
@@ -39,6 +45,7 @@ const roll = async () => {
         currentFace.value = Math.floor(Math.random() * props.facets) + 1
     }
     finishedRolling.value = true;
+    logResult()
 }
 
 watch(() => props.isRolling, (newVal) => {
@@ -72,12 +79,12 @@ watch(() => props.isRolling, (newVal) => {
     opacity: 0.6;
 }
 
-.d4 { background-image: url('@/assets/d4.jpg'); background-size: cover; }
-.d6 { background-image: url('@/assets/d6.jpg'); background-size: cover; }
-.d8 { background-image: url('@/assets/d8.jpg'); background-size: cover; }
-.d10 { background-image: url('@/assets/d10.jpg'); background-size: cover; }
-.d12 { background-image: url('@/assets/d12.jpg'); background-size: cover; }
-.d20 { background-image: url('@/assets/d20.jpg'); background-size: cover; }
+.d4 { background-image: url('@/assets/d4.png'); background-size: cover; border-width: 0px; }
+.d6 { background-image: url('@/assets/d6.png'); background-size: cover; border-width: 0px }
+.d8 { background-image: url('@/assets/d8.png'); background-size: cover; border-width: 0px }
+.d10 { background-image: url('@/assets/d10.png'); background-size: cover; border-width: 0px }
+.d12 { background-image: url('@/assets/d12.png'); background-size: cover; border-width: 0px }
+.d20 { background-image: url('@/assets/d20.png'); background-size: cover; border-width: 0px }
 
 .dice-rolling {
     display: flex;

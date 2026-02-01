@@ -13,7 +13,7 @@ export default {
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
         const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#000000';
+        ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 }
@@ -39,8 +39,10 @@ export default {
     position: absolute;
     bottom: 10px;
     right: 10px;
+    left: 10px;
+    text-align: center;
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgb(255, 225, 0.5);
     font-family: Arial, sans-serif;
     pointer-events: none;
 }
