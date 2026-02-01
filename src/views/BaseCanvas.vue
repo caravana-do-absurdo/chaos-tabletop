@@ -17,12 +17,12 @@ const canvas = ref<HTMLCanvasElement>();
 const tileToUse = ref<HTMLImageElement>();
 const isMouseDown = ref(false);
 const currentLayer = ref(0);
-const layers = ref([{}, {}, {}])
+const layers = ref<Array<Record<string, CanvasImageSource>>>([{}, {}, {}])
 const tilesStore = useTilesStore()
 const { selectedTile } = storeToRefs(tilesStore)
 
 const renderGridCanvas = (ctx: CanvasRenderingContext2D ) => {
-    if (ctx) {
+    if (canvas.value) {
         ctx.fillStyle = '#000';
         ctx.strokeStyle = '#333'
         ctx.lineWidth = 1;
@@ -69,24 +69,24 @@ onMounted(() => {
     }
 });
 
-const getCoords = (e) => {
-   const { x, y } = e.target.getBoundingClientRect();
-   const mouseX = e.clientX - x;
-   const mouseY = e.clientY - y;
+const getCoordinates = (event: MouseEvent) => {
+   const mouseX = event.clientX;
+   const mouseY = event.clientY;
    return [Math.floor(mouseX / SIZE_OF_TILES), Math.floor(mouseY / SIZE_OF_TILES)];
 }
 
 const draw = () => {
-   var ctx = canvas.value.getContext("2d");
-   renderGridCanvas(ctx)
+    var ctx = canvas.value?.getContext("2d");
+    if(!ctx) return
+    renderGridCanvas(ctx)
    
    layers.value.forEach((layer) => {
       Object.keys(layer).forEach((key) => {
          var positionX = Number(key.split("-")[0]);
          var positionY = Number(key.split("-")[1]);
-         let tileToRender = layer[key]
+         let tileToRender = layer[key] as CanvasImageSource
 
-         ctx.drawImage(
+         ctx?.drawImage(
             tileToRender,
             0,
             0,
@@ -101,20 +101,23 @@ const draw = () => {
    });
 }
 
-const addTile = (mouseEvent) => {
-   var clicked = getCoords(mouseEvent);
-   var key = clicked[0] + "-" + clicked[1];
+const addTile = (mouseEvent: MouseEvent) => {
+    if(!tileToUse.value || !layers.value[currentLayer.value]) return
+    let clicked = getCoordinates(mouseEvent);
+    let key = clicked[0] + "-" + clicked[1];
 
-   if (mouseEvent.shiftKey) {
-        delete layers.value[currentLayer.value][key];
-   } else {
-        layers.value[currentLayer.value][key] = tileToUse.value.cloneNode(true);
-   }
-   draw();
+    if (mouseEvent.shiftKey) {
+            delete layers.value[currentLayer.value]![key];
+    } else {
+            layers.value[currentLayer.value]![key] = tileToUse.value.cloneNode(true) as HTMLImageElement;
+    }
+    draw();
 }
 
 watch(selectedTile, (newVal) => {
-    tileToUse.value.src = newVal.src
+    if (newVal && tileToUse.value) {
+        tileToUse.value.src = newVal.src
+    }
 })
 </script>
 
