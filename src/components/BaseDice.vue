@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { useLogStore } from '@/stores/log';
-import { DiceNumbers } from '@/types';
+import type { DiceNumbers } from '@/types';
 import { ref, watch } from 'vue'
 
 interface Props {

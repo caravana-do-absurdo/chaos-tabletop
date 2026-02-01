@@ -5,18 +5,22 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'BaseCanvas',
-    mounted() {
-        const canvas = this.$refs.canvas;
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+const canvas = ref<HTMLCanvasElement>();
+
+onMounted(() => {
+    if (canvas.value) {
+        canvas.value.width = canvas.value.offsetWidth;
+        canvas.value.height = canvas.value.offsetHeight;
+        const ctx = canvas.value.getContext('2d');
+        if (ctx) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.value.width, canvas.value.height);
+        }
     }
-}
+});
 </script>
 
 <style scoped>

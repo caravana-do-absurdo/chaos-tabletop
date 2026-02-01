@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import BaseDice from '@/components/BaseDice.vue'
-import { DiceNumbers } from '@/types';
+import type { DiceNumbers } from '@/types';
 import { useLogStore } from '@/stores/log';
 
 const { addLogMsg } = useLogStore()
