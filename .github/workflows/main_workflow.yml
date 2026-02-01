@@ -21,14 +21,19 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Upload Node Modules Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node_modules-
 
@@ -46,11 +51,16 @@ jobs:
       with:
         node-version-file: '.nvmrc'
 
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
     - name: Restore Node Modules Cache
       uses: actions/cache@v4
       with:
         path: node_modules
-        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-node_modules-
 
